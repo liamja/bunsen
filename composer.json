@@ -1,0 +1,12 @@
+{
+    "name": "liamja/ci-test-patching",
+    "description": "Patch the Codeigniter core at test-time",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Liam Anderson",
+            "email": "liam.anderson.91@gmail.com"
+        }
+    ],
+    "require": {}
+}
