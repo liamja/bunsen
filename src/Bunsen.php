@@ -68,9 +68,11 @@ class Bunsen
          * Autoload controllers
          */
         spl_autoload_register(function ($class) {
+            $class = strtolower($class);
+
             $files = new \RecursiveDirectoryIterator(APPPATH . 'controllers');
             $files = new \RecursiveIteratorIterator($files, \RecursiveIteratorIterator::SELF_FIRST);
-            $files = new \RegexIterator($files, '/\.php$/');
+            $files = new \RegexIterator($files, "/$class\\.php$/");
 
             foreach ($files as $file) {
                 require_once $file;
