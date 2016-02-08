@@ -1,12 +1,21 @@
 {
-    "name": "liamja/ci-test-patching",
-    "description": "Patch the Codeigniter core at test-time",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Liam Anderson",
-            "email": "liam.anderson.91@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "liamja/bunsen",
+  "description": "Testing framework for Codeigniter 2.x",
+  "version": "0.1.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Liam Anderson",
+      "email": "liam.anderson.91@gmail.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "^5.2",
+    "antecedent/patchwork": "^1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bunsen\\": "src/"
+    }
+  }
 }
