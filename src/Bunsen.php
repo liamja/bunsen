@@ -2,6 +2,10 @@
 
 namespace Bunsen;
 
+use \PHPUnit_Framework_Exception;
+use function \Patchwork\redefine;
+use function \Patchwork\relay;
+
 /**
  * Bootstrap
  */
@@ -19,16 +23,16 @@ class Bunsen
         /**
          * Hook show_error to throw an exception PHPUnit can catch
          */
-        \Patchwork\redefine('\show_error', function ($message, $status_code = 500, $heading = 'An Error Was Encountered') {
-            \Patchwork\relay();
+        redefine('\show_error', function ($message, $status_code = 500, $heading = 'An Error Was Encountered') {
+            relay();
             throw new PHPUnit_Framework_Exception($heading . ' - ' . $message, $status_code);
         });
 
         /**
          * Hook show_404 to throw an exception PHPUnit can catch
          */
-        \Patchwork\redefine('\show_404', function ($page = '', $log_error = true) {
-            \Patchwork\relay();
+        redefine('\show_404', function ($page = '', $log_error = true) {
+            relay();
             throw new PHPUnit_Framework_Exception($page, 404);
         });
 
@@ -36,18 +40,18 @@ class Bunsen
          * Hook CI_Utf8::__construct to load the the Config class
          * into the $CFG superglobal.
          */
-        \Patchwork\redefine('\CI_Utf8::__construct', function () {
+        redefine('\CI_Utf8::__construct', function () {
             $GLOBALS['CFG'] = load_class('Config', 'core');
-            \Patchwork\relay();
+            relay();
         });
 
         /**
          * Hook CI_Output::_display to load the Benchmark class
          * into the $BM superglobal.
          */
-        \Patchwork\redefine('\CI_Output::_display', function () {
+        redefine('\CI_Output::_display', function () {
             $GLOBALS['BM'] = load_class('Benchmark', 'core');
-            \Patchwork\relay();
+            relay();
         });
 
         /**
