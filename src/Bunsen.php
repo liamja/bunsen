@@ -7,8 +7,15 @@ namespace Bunsen;
  */
 class Bunsen
 {
-    public function bootstrap()
-    {
+    public function bootstrap($indexPath = __DIR__ . '../../../index.php') {
+
+        $indexPath = realpath($indexPath);
+
+        if ($indexPath === false)
+        {
+            throw new PHPUnit_Framework_Exception('App path not found. Check the first parameter passed to Bunsen::bootstrap() points to the directory containing index.php.');
+        }
+
         /**
          * Hook show_error to throw an exception PHPUnit can catch
          */
@@ -50,7 +57,7 @@ class Bunsen
          * We can then trigger requests from tests.
          */
         ob_start();
-        require_once __DIR__ . '/../index.php';
+        require_once $indexPath;
         ob_clean();
 
         /**
