@@ -2,10 +2,12 @@
 
 namespace Bunsen;
 
+use PHPUnit_Framework_TestCase;
+
 /**
  * Controller Test Case
  */
-abstract class ControllerTestCase extends \PHPUnit_Framework_TestCase
+abstract class ControllerTestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \CI_Controller
@@ -17,7 +19,7 @@ abstract class ControllerTestCase extends \PHPUnit_Framework_TestCase
      *
      * Wrap instantiation in an output buffer to catch errors.
      *
-     * @param string $controller Namespaced controller to load
+     * @param string $controller Controller to load
      */
     protected static function loadController($controller)
     {
@@ -29,7 +31,7 @@ abstract class ControllerTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Make a request to the controller
      *
-     * @params string[] $requestParams Request URI
+     * @param string[] $requestParams Request URI
      */
     public function makeRequest(array $requestParams)
     {
