@@ -17,5 +17,8 @@
     "psr-4": {
       "Bunsen\\": "src/"
     }
+  },
+  "scripts": {
+    "test": "phpunit"
   }
 }
