@@ -2,6 +2,7 @@
 
 namespace Bunsen;
 
+use Patchwork\Exceptions\Exception as PatchworkException;
 use PHPUnit_Framework_TestCase;
 
 /**

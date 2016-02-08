@@ -5,6 +5,7 @@ namespace Bunsen;
 use \PHPUnit_Framework_Exception;
 use function \Patchwork\redefine;
 use function \Patchwork\relay;
+use function \Patchwork\silence;
 
 /**
  * Bootstrap
@@ -23,36 +24,36 @@ class Bunsen
         /**
          * Hook show_error to throw an exception PHPUnit can catch
          */
-        redefine('\show_error', function ($message, $status_code = 500, $heading = 'An Error Was Encountered') {
+        silence(redefine('\show_error', function ($message, $status_code = 500, $heading = 'An Error Was Encountered') {
             relay();
             throw new PHPUnit_Framework_Exception($heading . ' - ' . $message, $status_code);
-        });
+        }));
 
         /**
          * Hook show_404 to throw an exception PHPUnit can catch
          */
-        redefine('\show_404', function ($page = '', $log_error = true) {
+        silence(redefine('\show_404', function ($page = '', $log_error = true) {
             relay();
             throw new PHPUnit_Framework_Exception($page, 404);
-        });
+        }));
 
         /**
          * Hook CI_Utf8::__construct to load the the Config class
          * into the $CFG superglobal.
          */
-        redefine('\CI_Utf8::__construct', function () {
+        silence(redefine('\CI_Utf8::__construct', function () {
             $GLOBALS['CFG'] = load_class('Config', 'core');
             relay();
-        });
+        }));
 
         /**
          * Hook CI_Output::_display to load the Benchmark class
          * into the $BM superglobal.
          */
-        redefine('\CI_Output::_display', function () {
+        silence(redefine('\CI_Output::_display', function () {
             $GLOBALS['BM'] = load_class('Benchmark', 'core');
             relay();
-        });
+        }));
 
         /**
          * Bootstrap CodeIgniter
