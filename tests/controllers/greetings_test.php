@@ -1,12 +1,12 @@
 <?php
 
+/**
+ * Greetings Controller Test
+ *
+ * @controller Greetings
+ */
 class GreetingsTest extends Bunsen\ControllerTestCase
 {
-    public static function setUpBeforeClass()
-    {
-        self::loadController(\Greetings::class);
-    }
-
     public function testIndex()
     {
         $this->makeRequest(['greetings', 'index']);

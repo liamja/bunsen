@@ -16,17 +16,26 @@ abstract class ControllerTestCase extends PHPUnit_Framework_TestCase
     protected static $ci;
 
     /**
-     * Fetch and instantiate the controller to test
-     *
-     * Wrap instantiation in an output buffer to catch errors.
-     *
-     * @param string $controller Controller to load
+     * @inheritdoc
      */
-    protected static function loadController($controller)
+    public static function setUpBeforeClass()
     {
-        ob_start();
-        static::$ci = new $controller;
-        ob_clean();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * Fetch and instantiate the controller to test.
+     */
+    protected function setUp()
+    {
+        $antns = $this->getAnnotations();
+
+        if (!empty($antns['class']['method'][0])) {
+            static::$ci = new $antns['class']['method'][0];
+        } elseif (!empty($antns['class']['controller'][0])) {
+            static::$ci = new $antns['class']['controller'][0];
+        }
     }
 
     /**

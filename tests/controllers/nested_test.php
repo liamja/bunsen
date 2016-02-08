@@ -1,12 +1,12 @@
 <?php
 
+/**
+ * Nested Controller Test
+ *
+ * @controller Nested
+ */
 class NestedTest extends Bunsen\ControllerTestCase
 {
-    public static function setUpBeforeClass()
-    {
-        self::loadController(\Nested::class);
-    }
-
     public function testIndex()
     {
         $this->makeRequest(['folder', 'nested', 'index']);
