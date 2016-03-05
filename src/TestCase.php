@@ -2,7 +2,7 @@
 
 namespace Bunsen;
 
-use Patchwork\Exceptions\Exception as PatchworkException;
+use GuzzleHttp\Psr7\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -41,15 +41,43 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     /**
      * Make a request to the controller
      *
-     * @param string[] $requestParams Request URI
+     * @param Request $request
+     * @internal param \string[] $requestParams Request URI
      */
-    public function makeRequest(array $requestParams)
+    public function makeRequest(Request $request)
     {
+        $this->forgeServerGlobal($request);
+
         ob_start();
 
-        self::$ci->router->_set_request($requestParams);
+        self::$ci->router->_set_request(explode('/', trim($request->getUri()->getPath(), '/')));
         call_user_func_array([static::$ci, static::$ci->uri->rsegments[1]], array_slice(static::$ci->uri->rsegments, 2));
 
         echo ob_get_clean();
+    }
+
+    /**
+     * Call a function whilst trapping and returning any prints/echoes
+     *
+     * @param callable $callable
+     * @return string
+     */
+    public function returnBuffer(callable $callable)
+    {
+        ob_start();
+        $callable();
+        return ob_get_clean();
+    }
+
+    /**
+     * Take a request and update the $_SERVER global to match
+     *
+     * @param Request $request
+     */
+    private function forgeServerGlobal(Request $request)
+    {
+        $_SERVER['REQUEST_URI'] = $request->getUri()->getPath();
+        $_SERVER['REQUEST_METHOD'] = $request->getMethod();
+        $_SERVER['QUERY_STRING'] = $request->getUri()->getQuery();
     }
 }

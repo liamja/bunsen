@@ -11,7 +11,8 @@
   ],
   "require": {
     "phpunit/phpunit": "^4.8",
-    "antecedent/patchwork": "^1.4"
+    "antecedent/patchwork": "^1.4",
+    "guzzlehttp/psr7": "^1.2"
   },
   "autoload": {
     "psr-4": {

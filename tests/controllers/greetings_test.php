@@ -1,5 +1,7 @@
 <?php
 
+use \GuzzleHttp\Psr7\Request;
+
 /**
  * Greetings Controller Test
  *
@@ -9,7 +11,8 @@ class GreetingsTest extends Bunsen\TestCase
 {
     public function testIndex()
     {
-        $this->makeRequest(['greetings', 'index']);
+        $request = new Request('GET', '/greetings/index');
+        $this->makeRequest($request);
         $this->expectOutputRegex('/Many greetings to CodeIgniter/');
     }
 }

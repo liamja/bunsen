@@ -1,5 +1,7 @@
 <?php
 
+use \GuzzleHttp\Psr7\Request;
+
 /**
  * Welcome Controller Test
  *
@@ -9,13 +11,15 @@ class WelcomeTest extends Bunsen\TestCase
 {
     public function testTestMe()
     {
-        $this->makeRequest(['welcome', 'testme']);
+        $request = new Request('GET', 'welcome/testme');
+        $this->makeRequest($request);
         $this->expectOutputString('Do I exist?');
     }
 
     public function testIndex()
     {
-        $this->makeRequest(['welcome', 'index']);
+        $request = new Request('GET', 'welcome/index');
+        $this->makeRequest($request);
         $this->expectOutputRegex('/Welcome to CodeIgniter/');
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Psr7\Request;
+
 /**
  * Nested Controller Test
  *
@@ -9,7 +11,8 @@ class NestedTest extends Bunsen\TestCase
 {
     public function testIndex()
     {
-        $this->makeRequest(['folder', 'nested', 'index']);
+        $request = new Request('GET', '/folder/nested/index');
+        $this->makeRequest($request);
         $this->expectOutputRegex('/I am nested\./');
     }
 }
