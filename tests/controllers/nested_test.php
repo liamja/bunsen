@@ -5,7 +5,7 @@
  *
  * @controller Nested
  */
-class NestedTest extends Bunsen\ControllerTestCase
+class NestedTest extends Bunsen\TestCase
 {
     public function testIndex()
     {

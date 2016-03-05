@@ -5,7 +5,7 @@
  *
  * @controller Greetings
  */
-class GreetingsTest extends Bunsen\ControllerTestCase
+class GreetingsTest extends Bunsen\TestCase
 {
     public function testIndex()
     {

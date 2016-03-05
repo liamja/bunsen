@@ -5,7 +5,7 @@
  *
  * @controller Welcome
  */
-class WelcomeTest extends Bunsen\ControllerTestCase
+class WelcomeTest extends Bunsen\TestCase
 {
     public function testTestMe()
     {
