@@ -2,7 +2,8 @@
 
 namespace Bunsen;
 
-use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -14,13 +15,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      * @var \CI_Controller
      */
     protected static $ci;
-
-    /**
-     * @inheritdoc
-     */
-    public static function setUpBeforeClass()
-    {
-    }
 
     /**
      * @inheritdoc
@@ -36,48 +30,78 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         } elseif (!empty($antns['class']['controller'][0])) {
             static::$ci = new $antns['class']['controller'][0];
         }
+
+        return $this;
     }
 
     /**
-     * Make a request to the controller
+     * Make an HTTP request
      *
-     * @param Request $request
-     * @internal param \string[] $requestParams Request URI
+     * @param RequestInterface $request
      */
-    public function makeRequest(Request $request)
+    public function send(RequestInterface $request)
     {
         $this->forgeServerGlobal($request);
+        $this->forgeUri($request->getUri());
 
-        ob_start();
+        echo $this->returnBuffer([static::$ci, static::$ci->uri->rsegments[1]], array_slice(static::$ci->uri->rsegments, 2));
 
-        self::$ci->router->_set_request(explode('/', trim($request->getUri()->getPath(), '/')));
-        call_user_func_array([static::$ci, static::$ci->uri->rsegments[1]], array_slice(static::$ci->uri->rsegments, 2));
-
-        echo ob_get_clean();
+        return $this;
     }
 
     /**
      * Call a function whilst trapping and returning any prints/echoes
      *
-     * @param callable $callable
-     * @return string
+     * @param callable $callable Function to trap
+     * @param array    $args     Arguments to $callable
+     * @return string            Trapped prints/echoes from $callable
      */
-    public function returnBuffer(callable $callable)
+    public function returnBuffer(callable $callable, array $args)
     {
         ob_start();
-        $callable();
+        $callable(...$args);
         return ob_get_clean();
     }
 
     /**
      * Take a request and update the $_SERVER global to match
      *
-     * @param Request $request
+     * @param RequestInterface $request
      */
-    private function forgeServerGlobal(Request $request)
+    private function forgeServerGlobal(RequestInterface $request)
     {
         $_SERVER['REQUEST_URI'] = $request->getUri()->getPath();
         $_SERVER['REQUEST_METHOD'] = $request->getMethod();
         $_SERVER['QUERY_STRING'] = $request->getUri()->getQuery();
+
+        if ($request->hasHeader('Content-Type')) {
+            $_SERVER['CONTENT_TYPE'] = $request->getHeaderLine('Content-Type');
+        }
+        if ($request->hasHeader('Referer')) {
+            $_SERVER['HTTP_REFERER'] = $request->getHeaderLine('Referer');
+        }
+        if ($request->hasHeader('X-Requested-with')) {
+            $_SERVER['HTTP_X_REQUESTED_WITH'] = $request->getHeaderLine('X-Requested-With');
+        }
+        if ($request->hasHeader('User-Agent')) {
+            $_SERVER['HTTP_USER_AGENT'] = $request->getHeaderLine('User-Agent');
+        }
+        if ($request->hasHeader('X-Forwarded-For')) {
+            $_SERVER['HTTP_X_FORWARDED_FOR'] = $request->getHeaderLine('X-Forwarded-For');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Take a request URI and update the CI URI object state to match
+     *
+     * @param UriInterface $uri
+     */
+    private function forgeUri(UriInterface $uri)
+    {
+        static::$ci->router->_set_request(explode('/', trim($uri->getPath(), '/')));
+
+        return $this;
     }
 }

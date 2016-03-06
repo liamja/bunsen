@@ -12,7 +12,7 @@ class GreetingsTest extends Bunsen\TestCase
     public function testIndex()
     {
         $request = new Request('GET', '/greetings/index');
-        $this->makeRequest($request);
+        $this->send($request);
         $this->expectOutputRegex('/Many greetings to CodeIgniter/');
     }
 }

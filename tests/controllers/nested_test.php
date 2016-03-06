@@ -12,7 +12,7 @@ class NestedTest extends Bunsen\TestCase
     public function testIndex()
     {
         $request = new Request('GET', '/folder/nested/index');
-        $this->makeRequest($request);
+        $this->send($request);
         $this->expectOutputRegex('/I am nested\./');
     }
 }

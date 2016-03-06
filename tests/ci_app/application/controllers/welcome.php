@@ -26,6 +26,14 @@ class Welcome extends CI_Controller {
 	{
 		echo 'Do I exist?';
 	}
+
+	/**
+	 * Test X-Requested-With header
+	 */
+	public function is_ajax()
+	{
+		echo $this->input->is_ajax_request() ? 'true' : 'false';
+	}
 }
 
 /* End of file welcome.php */
