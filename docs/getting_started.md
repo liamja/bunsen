@@ -130,3 +130,7 @@ Time: 0 seconds, Memory: 5.25Mb
 
 OK (1 test, 1 assertion)
 ```
+
+You've now written your first test!
+
+That's the simplest controller test you can make with Bunsen. The following sections will describe what Bunsen is doing behind-the-scenes and how to write advanced tests.
