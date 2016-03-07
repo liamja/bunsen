@@ -1,6 +1,6 @@
 # My First Test
 
-To introduce Bunsen, we'll write a simple controller test. We'll create a test for the _Welcome_ controller found in default installations of CodeIgniter. This test will look for the existence of the phrase _"Welcome to CodeIgniter"_. If the phrase is output to the browser, the test will pass.
+To introduce Bunsen, we'll write a simple controller test. We'll create a test for the _Welcome_ controller found in default installations of CodeIgniter. This test will look for the existence of the phrase _"Welcome to CodeIgniter"_. If the phrase is output to the browser, the test should pass.
 
 Here is the _Welcome_ controller, found in new installations of CodeIgniter:
 
