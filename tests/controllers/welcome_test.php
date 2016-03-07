@@ -13,7 +13,7 @@ class WelcomeTest extends Bunsen\TestCase
     {
         $request = new Request('GET', 'welcome/testme');
         $this->send($request);
-        $this->expectOutputString('Do I exist?');
+        $this->expectOutputRegex('/Do I exist?/');
     }
 
     public function testIndex()

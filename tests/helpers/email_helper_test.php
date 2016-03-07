@@ -1,16 +1,11 @@
 <?php
 
-class Email_Helper_Test extends PHPUnit_Framework_TestCase
+class Email_Helper_Test extends Bunsen\TestCase
 {
-    /**
-     * @var \CI_Controller
-     */
-    private $ci;
-
     public function setUp()
     {
-        $this->ci = get_instance();
-        $this->ci->load->helper('email');
+        parent::setUp();
+        self::$ci->load->helper('email');
     }
 
     public function testEmailValidation()
