@@ -1,4 +1,4 @@
 # Summary
 
-* [My First Test](docs/getting_started.md)
+* [My First Test](docs/my_first_test.md)
 
