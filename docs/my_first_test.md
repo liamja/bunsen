@@ -14,7 +14,7 @@ class Welcome extends CI_Controller
 }
 ```
 
-We can see that the `/welcome/index` will load the `welcome_message` view and output the contents to the browser.
+We can see that accessing `/welcome/index` will load the `welcome_message` view and output the contents to the browser.
 
 Here is the contents of the `welcome_message` view, minus some HTML boilerplate:
 
@@ -38,20 +38,19 @@ Here is the contents of the `welcome_message` view, minus some HTML boilerplate:
 </div>
 ```
 
-Let's assume we are the maintainers of CodeIgniter. Let us also assume that displaying this welcome text is important in demonstrating it's value. We should ensure any changes we make to CodeIgniter don't break this welcome page.
+Let's assume we are the maintainers of CodeIgniter. Let us also assume that displaying this welcome text is important in demonstrating its value. We should ensure any changes we make to CodeIgniter don't break this welcome page.
 
 To ensure this page is working, we can test for the existence of this text in CodeIgniter's response to the browser.
 
 ## Writing Our Test
 
-Begin by creating a file `test/controllers/welcome_test.php`.
+Begin by creating a new file at `test/controllers/welcome_test.php`.
 
 All test classes must extend `Bunsen\TestCase`.
 
 ```php
 class Welcome_test extends Bunsen\TestCase
 {
-    
 }
 ```
 
