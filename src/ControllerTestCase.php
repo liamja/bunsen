@@ -3,12 +3,12 @@
 namespace Bunsen;
 
 use Patchwork\Exceptions\Exception as PatchworkException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Controller Test Case
  */
-abstract class ControllerTestCase extends PHPUnit_Framework_TestCase
+abstract class ControllerTestCase extends TestCase
 {
     /**
      * @var \CI_Controller
