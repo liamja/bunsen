@@ -10,8 +10,8 @@
     }
   ],
   "require": {
-    "phpunit/phpunit": "^4.8",
-    "antecedent/patchwork": "^1.4",
+    "phpunit/phpunit": "^6",
+    "antecedent/patchwork": "^2.1",
     "guzzlehttp/psr7": "^1.2",
     "psr/http-message": "^1.0"
   },

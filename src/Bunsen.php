@@ -2,7 +2,7 @@
 
 namespace Bunsen;
 
-use PHPUnit_Framework_Exception;
+use PHPUnit\Framework\Exception;
 use function Patchwork\redefine;
 use function Patchwork\relay;
 use function Patchwork\silence;
@@ -17,7 +17,7 @@ class Bunsen
         $indexPath = realpath($indexPath);
 
         if ($indexPath === false) {
-            throw new PHPUnit_Framework_Exception('App path not found. Check the first parameter passed to Bunsen::bootstrap() points to the directory containing index.php.');
+            throw new Exception('App path not found. Check the first parameter passed to Bunsen::bootstrap() points to the directory containing index.php.');
         }
 
         /**
@@ -25,7 +25,7 @@ class Bunsen
          */
         silence(redefine('\show_error', function ($message, $status_code = 500, $heading = 'An Error Was Encountered') {
             relay();
-            throw new PHPUnit_Framework_Exception("$heading - $message", $status_code);
+            throw new Exception("$heading - $message", $status_code);
         }));
 
         /**

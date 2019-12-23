@@ -4,12 +4,11 @@ namespace Bunsen;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Controller Test Case
  */
-abstract class TestCase extends PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \CI_Controller
